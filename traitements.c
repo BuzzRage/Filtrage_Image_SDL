@@ -20,12 +20,16 @@
     -Bruit gaussien / sel et poivre
     -Filtre moyenneur
     -Filtre médian
+    
+   WARNING:
+			Passage de SDL à SDL2: SDL_HWSURFACE semble ne plus exister
+			(solution appliquée: SDL_HWSURFACE -> SDL_SWSURFACE)
 */
 
 SDL_Surface* inv_img(SDL_Surface *Image){
     SDL_Surface *inv_Img=NULL;
     int i,j;
-    inv_Img = SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+    inv_Img = SDL_CreateRGBSurface(SDL_SWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
     for(i=0;i<Image->w;i++){
         for(j=0;j<Image->h;j++){
             putpixel(inv_Img,i,j,SDL_MapRGB(inv_Img->format,255,255,255)-getpixel(Image,i,j));
@@ -39,7 +43,7 @@ SDL_Surface* ng_img(SDL_Surface *Image){
     SDL_Surface *ng_Img=NULL;
     SDL_Color c;
     int i,j,gris;
-    ng_Img=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+    ng_Img=SDL_CreateRGBSurface(SDL_SWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
     for(i=0;i<Image->w;i++){
         for(j=0;j<Image->h;j++){
             SDL_GetRGB(getpixel(Image,i,j),Image->format,&c.r,&c.g,&c.b); // Récupère la couleur du pixel et la met dans la structure SDL_Color
@@ -55,7 +59,7 @@ SDL_Surface* ng_img(SDL_Surface *Image){
 SDL_Surface* bin_img(SDL_Surface *Image,int seuil, Uint32 couleur_down, Uint32 couleur_up){
     SDL_Surface *bin_Img=NULL;
     int i,j;
-    bin_Img=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+    bin_Img=SDL_CreateRGBSurface(SDL_SWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
     bin_Img=ng_img(Image); // Récupère l'image en niveau de gris pour seuillage
     for(i=0;i<Image->w;i++){
         for(j=0;j<Image->h;j++){
@@ -78,7 +82,7 @@ SDL_Surface* quant_img(SDL_Surface *Image,int seuil,int nb_bits,Uint32 **couleur
         printf("\n====== Couleurs fonction %d: %8x",i,couleurs[i]);
     }
     printf("Il y a %d couleurs.\n",nb_couleurs);
-    quant_Img=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+    quant_Img=SDL_CreateRGBSurface(SDL_SWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
     quant_Img=ng_img(Image); // Récupère l'image en niveau de gris pour seuillage
     for(i=0;i<Image->w;i++){
         for(j=0;j<Image->h;j++){
@@ -101,7 +105,7 @@ SDL_Surface* lux_img(SDL_Surface *Image, int seuil){
     double n=(double)seuil/128; // n = [ 0 ; 2 ]
     printf("SEUIL LUX: %d N: %f\n",seuil,n);
     SDL_Color color;
-    lux_Img=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+    lux_Img=SDL_CreateRGBSurface(SDL_SWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
     for(i=0;i<Image->w; i++){
         for(j=0;j<Image->h;j++){
 // Méthode 1
@@ -140,7 +144,7 @@ SDL_Surface* filtre_moyenneur(SDL_Surface *Image){
 //    moy_Img=imfilter(Image,&filtre);
 
     SDL_Color color;
-    moy_Img=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+    moy_Img=SDL_CreateRGBSurface(SDL_SWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
     //moy_Img=ng_img(Image);
     Uint32 *p = Image->pixels;
     for(i=0;i<Image->w; i++){
@@ -182,7 +186,7 @@ SDL_Surface* imfilter(SDL_Surface *Image,struct Filter* filtre){
     int i,j;
     SDL_Surface *imgFiltree=NULL;
     SDL_Color color;
-    imgFiltree=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+    imgFiltree=SDL_CreateRGBSurface(SDL_SWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
     for(i=0;i<filtre->row;i++){
         for(i=0;i<filtre->colomn;j++){
             //Appliquer le filtre à l'image = multiplier le noyau à chaque pixel (avec un masque de la taille du filtre)

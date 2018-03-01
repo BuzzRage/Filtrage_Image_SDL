@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL.h>
-#include <SDL/SDL_image.h>
+#include <SDL2/SDL_image.h>
 #include "constantes.h"
 
 void pause(SDL_Surface *Image,SDL_Surface *screen);
@@ -9,10 +9,11 @@ struct verrou v;
 int main(int argc, char *argv[])
 {
     v.chargementOK=0;
-//     freopen("CON", "w", stdout); // Redirection de la sortie (autorisation en écriture) sur console
-//     freopen("CON", "r", stdin);  // Redirection de l'entrée (autorisation en lecture) sur console
-//     freopen("CON", "w", stderr); // Redirection de la sortie d'erreur (autorisation en écriture) sur console
-    SDL_Surface *screen=NULL, *Image=NULL;
+    freopen("CON", "w", stdout); // Redirection de la sortie (autorisation en écriture) sur console
+    freopen("CON", "r", stdin);  // Redirection de l'entrée (autorisation en lecture) sur console
+    freopen("CON", "w", stderr); // Redirection de la sortie d'erreur (autorisation en écriture) sur console
+    SDL_Surface *Image = NULL;
+		SDL_Window *screen = NULL;
     SDL_Rect posImage;
     posImage.x=0;
     posImage.y=0;
@@ -28,8 +29,14 @@ int main(int argc, char *argv[])
         else
             printf("\nErreur de chargement, verifiez le nom de l'image.\n");
     }
-    screen=SDL_SetVideoMode(2*Image->w+LARGEUR_SEUIL, Image->h, 32, SDL_HWSURFACE);
-    SDL_WM_SetCaption("Traitement d'image", NULL);
+//     screen=SDL_SetVideoMode(2*Image->w+LARGEUR_SEUIL, Image->h, 32, SDL_HWSURFACE);
+		screen = SDL_CreateWindow("Traitement d'image",
+															SDL_WINDOWPOS_UNDEFINED,
+															SDL_WINDOWPOS_UNDEFINED,
+															2*Image->w+LARGEUR_SEUIL, 
+															Image->h, 
+															SDL_SWSURFACE);
+//     SDL_WM_SetCaption("Traitement d'image", NULL);
 
     SDL_BlitSurface(Image, NULL, screen, &posImage);
     pause(Image,screen);
@@ -50,7 +57,7 @@ int main(int argc, char *argv[])
     -n: transformation en niveaux de gris (noir et blanc)
     -q: quantification (avec nb de bits paramètrable)
 */
-void pause(SDL_Surface *Image,SDL_Surface *screen)
+void pause(SDL_Surface *Image,SDL_Window *screen)
 {
     int continuer = 1,seuil=0,nb_bits=3,nb_couleurs=1,i=0;
     SDL_Event event;
@@ -61,8 +68,10 @@ void pause(SDL_Surface *Image,SDL_Surface *screen)
     Uint32 couleurs[64],couleur; // 64 couleurs => 6 bits
 
     // Affectations
-    S_seuil=SDL_CreateRGBSurface(SDL_HWSURFACE, LARGEUR_SEUIL, Image->h, 32, 0, 0, 0, 0);
-    Image2=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+//     S_seuil=SDL_CreateRGBSurface(SDL_HWSURFACE, LARGEUR_SEUIL, Image->h, 32, 0, 0, 0, 0);
+//     Image2=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+		S_seuil=SDL_CreateRGBSurface(SDL_SWSURFACE, LARGEUR_SEUIL, Image->h, 32, 0, 0, 0, 0);
+		Image2=SDL_CreateRGBSurface(SDL_SWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
     posImg2.x=Image->w;
     posImg2.y=0;
     posSeuil.x=2*Image->w;
@@ -198,7 +207,8 @@ void pause(SDL_Surface *Image,SDL_Surface *screen)
         }
         else if(v.quantification){
             for(i=0;i<nb_couleurs;i++){ // Palette de couleur
-                S_quant[i]=SDL_CreateRGBSurface(SDL_HWSURFACE, LARGEUR_SEUIL, Image->h/nb_couleurs, 32, 0, 0, 0, 0);
+//                 S_quant[i]=SDL_CreateRGBSurface(SDL_HWSURFACE, LARGEUR_SEUIL, Image->h/nb_couleurs, 32, 0, 0, 0, 0);
+								S_quant[i]=SDL_CreateRGBSurface(SDL_SWSURFACE, LARGEUR_SEUIL, Image->h/nb_couleurs, 32, 0, 0, 0, 0);
                 SDL_FillRect(S_quant[i], NULL, couleurs[i]);
                 SDL_BlitSurface(S_quant[i], NULL, screen, &posSeuil);
                 posSeuil.y+=(Image->h)/nb_couleurs;
