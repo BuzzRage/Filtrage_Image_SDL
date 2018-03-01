@@ -2,7 +2,11 @@
 Filtrage d'image en C en utilisant la Simple DirectMedia Layer
 
 Ce programme utilise la SDL 1.2 (portage vers SDL 2 en cours).
-Il permet de réaliser des opérations simples de filtrage.
+Il a été réaliser sous linux et nécessite d'installer les paquets complémentaires suivants:
+* libsdl-image1.2
+* libsdl-mixer1.2
+
+Il permet de réaliser des opérations simples de filtrage et de traitement d'image.
 
 Il permet de:
 * Inverser les couleurs (touche 'i')
