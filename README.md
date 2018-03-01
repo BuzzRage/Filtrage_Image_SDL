@@ -13,6 +13,9 @@ Il permet de:
 * Quantification n-bits (setup du nb de bits + touche 'q' + fleche haut/bas)
 
 # ToDo:
+* Exporter résultat
+* Permettre l'envoie d'une image en paramètre (si lancé en ligne de commande)
+* Améliorer le Makefile
 * Résolution spatiale (échantillonage spatiale)
 * Masquage de zone (seuil et position 'a' paramètrables)
 * Étirement de l'histogramme (correction de la dynamique)
