@@ -5,7 +5,10 @@
 #include "constantes.h"
 
 void pause(SDL_Surface *Image,SDL_Surface *screen);
+void init(struct verrou v); // A définir pour alléger la lecture du code
+
 struct verrou v;
+
 int main(int argc, char *argv[])
 {
     v.chargementOK=0;
@@ -17,17 +20,23 @@ int main(int argc, char *argv[])
     posImage.x=0;
     posImage.y=0;
     char nom_fichier[50];
-
     SDL_Init(SDL_INIT_VIDEO);
-    while(!v.chargementOK){
-        printf("Vous voulez chargez quelle image ? (ne pas depasser 50 caracteres)\nNom: ");
-        scanf("%s",&nom_fichier);
-        Image= IMG_Load(nom_fichier);
-        if(Image)
-            v.chargementOK=1;
-        else
-            printf("\nErreur de chargement, verifiez le nom de l'image.\n");
-    }
+		
+		if(argc > 1){
+			if(Image = IMG_Load(argv[1]))
+				v.chargementOK=1;
+		}
+		
+		while(!v.chargementOK){
+			printf("Vous voulez chargez quelle image ? (ne pas depasser 50 caracteres)\nNom: ");
+			scanf("%s",&nom_fichier);
+			Image= IMG_Load(nom_fichier);
+			if(Image)
+					v.chargementOK=1;
+			else
+					printf("\nErreur de chargement, verifiez le nom de l'image.\n");
+		}
+		
     screen=SDL_SetVideoMode(2*Image->w+LARGEUR_SEUIL, Image->h, 32, SDL_HWSURFACE);
     SDL_WM_SetCaption("Traitement d'image", NULL);
 
