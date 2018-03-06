@@ -17,6 +17,7 @@ Il permet de:
 * Quantification n-bits (setup du nb de bits + touche 'q' + fleche haut/bas)
 
 # ToDo:
+* Faire Doc
 * Exporter résultat
 * Permettre l'envoie d'une image en paramètre (si lancé en ligne de commande)
 * Améliorer le Makefile
