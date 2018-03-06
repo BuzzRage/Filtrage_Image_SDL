@@ -39,9 +39,9 @@ struct verrou{
 };
 
 struct Filter{
-    unsigned char row;
-    unsigned char colomn;
-    unsigned char **Tab;
+	unsigned char row;
+	unsigned char colomn;
+	unsigned char **Tab;
 };
 
 #endif // CONSTANTES_H_INCLUDED
