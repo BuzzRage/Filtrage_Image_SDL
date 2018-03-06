@@ -15,10 +15,10 @@ Il permet de:
 * Passer en noir & blanc (touche 'n')
 * Binariser l'image (setup des deux couleurs + touche 'b' + fleche haut/bas)
 * Quantification n-bits (setup du nb de bits + touche 'q' + fleche haut/bas)
+* Exporter le résultat
 
 # ToDo:
 * Faire Doc
-* Exporter résultat
 * Permettre l'envoie d'une image en paramètre (si lancé en ligne de commande)
 * Améliorer le Makefile
 * Résolution spatiale (échantillonage spatiale)
