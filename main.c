@@ -140,6 +140,9 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 						}
 						Image2=quant_img(Image,seuil,nb_bits,couleurs);
 						break;
+					case SDLK_s:
+						SDL_SaveBMP(Image2,"save.bmp");
+						break;
 					case SDLK_DOWN:
 						if(v.binarisation){
 							if(seuil > 0){
