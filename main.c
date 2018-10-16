@@ -142,6 +142,7 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 						break;
 					case SDLK_s:
 						SDL_SaveBMP(Image2,"save.bmp");
+						printf("\n\nImage sauvegardee\n\n");
 						break;
 					case SDLK_DOWN:
 						if(v.binarisation){
