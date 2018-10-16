@@ -138,33 +138,39 @@ SDL_Surface* filtre_moyenneur(SDL_Surface *Image){
 //    filtre.Tab = filtre_tab;
 //    moy_Img=imfilter(Image,&filtre);
 
-	SDL_Color color;
 	moy_Img=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
-	//moy_Img=ng_img(Image);
-	Uint32 *p = Image->pixels;
-	for(i=0;i<Image->w; i++){
-		for(j=0;j<Image->h;j++){
-			putpixel(moy_Img,i,j, calc_moy(Image,j,i,TAILLE));
-			p[i * Image->w + i] = calc_moy(Image,j,i,TAILLE);
+	SDL_Rect posMoy;
+	posMoy.x=0;
+	posMoy.y=0;
+	SDL_BlitSurface(Image,NULL,moy_Img,&posMoy); // Copie l'image de base pour ne pas la détériorer
+	Uint32 *p = moy_Img->pixels;
+	
+	int w = Image->w, h = Image->h;
+	for(i=0;i<h; i++){
+		for(j=0;j<w;j++){
+			putpixel(moy_Img,j,i, calc_moy(moy_Img,i,j,TAILLE));
+			//p[i*w + j] = calc_moy(moy_Img,i,j,TAILLE);
+			if(i == h/2 && j == w/2)
+				SDL_SaveBMP(moy_Img,"mid.bmp");
 		}
 	}
 	return moy_Img;
 }
 
-static Uint32 calc_moy(SDL_Surface *Image, int i, int j, int n) // https://zestedesavoir.com/tutoriels/1014/utiliser-la-sdl-en-langage-c/tp-effets-sur-des-images/#1-noirs-et-negatifs
+static Uint32 calc_moy(SDL_Surface *surface, int i, int j, int n) // https://zestedesavoir.com/tutoriels/1014/utiliser-la-sdl-en-langage-c/tp-effets-sur-des-images/#1-noirs-et-negatifs
 {
 	const int initial_h = SDL_max(i - n, 0);
 	const int initial_w = SDL_max(j - n, 0);
-	const int final_h = SDL_min(i + n, Image->h - 1);
-	const int final_w = SDL_min(j + n, Image->w - 1);
+	const int final_h = SDL_min(i + n, surface->h - 1);
+	const int final_w = SDL_min(j + n, surface->w - 1);
 	int nb_pixel = ((final_h - initial_h) * (final_w - initial_w));
-	const Uint32 *p = Image->pixels;
+	const Uint32 *p = surface->pixels;
 	Uint32 sum_r = 0, sum_g = 0, sum_b = 0;
 	SDL_Color color;
 
 	for(i=initial_h;i<final_h;i++)
 		for(j=initial_w;j<final_w;j++){
-			SDL_GetRGB(p[i * Image->w + j], Image->format, &color.r, &color.g, &color.b);
+			SDL_GetRGB(p[i * surface->w + j], surface->format, &color.r, &color.g, &color.b);
 			sum_r += color.r;
 			sum_g += color.g;
 			sum_b += color.b;
@@ -173,7 +179,7 @@ static Uint32 calc_moy(SDL_Surface *Image, int i, int j, int n) // https://zeste
 		printf("\ni:%d\tj:%d\nnb_pixel=%d",i,j,nb_pixel);
 		//nb_pixel=1;
 	}
-	return SDL_MapRGB(Image->format, sum_r / nb_pixel, sum_g / nb_pixel, sum_b / nb_pixel);
+	return SDL_MapRGB(surface->format, sum_r / nb_pixel, sum_g / nb_pixel, sum_b / nb_pixel);
 }
 
 SDL_Surface* imfilter(SDL_Surface *Image,struct Filter* filtre){
