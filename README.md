@@ -15,7 +15,7 @@ Il permet de:
 * Passer en noir & blanc (touche 'n')
 * Binariser l'image (setup des deux couleurs + touche 'b' + fleche haut/bas)
 * Quantification n-bits (setup du nb de bits + touche 'q' + fleche haut/bas)
-* Exporter le résultat
+* Exporter le résultat dans un fichier nommé "save.bmp" (touche 's')
 
 # ToDo:
 * Faire Doc
