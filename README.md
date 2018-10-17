@@ -11,7 +11,8 @@ Il permet de réaliser des opérations simples de filtrage et de traitement d'im
 Il permet de:
 * Inverser les couleurs (touche 'i')
 * Changer la luminosité (touche 'l' + fleche haut/bas)
-* Filtre moyenneur (touche 'm')
+* Filtre moyenneur (floutage gaussien) (touche 'm')
+* Détourage primaire (touche 'd')
 * Passer en noir & blanc (touche 'n')
 * Binariser l'image (setup des deux couleurs + touche 'b' + fleche haut/bas)
 * Quantification n-bits (setup du nb de bits + touche 'q' + fleche haut/bas)
@@ -19,7 +20,6 @@ Il permet de:
 
 # ToDo:
 * Faire Doc
-* Permettre l'envoie d'une image en paramètre (si lancé en ligne de commande)
 * Améliorer le Makefile
 * Résolution spatiale (échantillonage spatiale)
 * Masquage de zone (seuil et position 'a' paramètrables)
@@ -29,7 +29,6 @@ Il permet de:
 * Histogramme cubique
 * Histogramme par couleur quantifée
 * Constraste (augmentation et diminution)
-* Floutage
 * Détourage
 * Représentation spectrale
 * Bruit gaussien / sel et poivre
