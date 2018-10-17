@@ -122,6 +122,25 @@ Uint8 f_lux(Uint8 c, double n){
 	return (Uint8) (255 * pow((double) c / 255, n));
 }
 
+SDL_Surface* detourage(SDL_Surface *Image){
+	SDL_Surface *det_Img=NULL;
+	SDL_Rect posMoy;
+	posMoy.x=0;
+	posMoy.y=0;
+	
+	det_Img=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+	SDL_BlitSurface(Image,NULL,det_Img,&posMoy); // Copie l'image de base pour ne pas la détériorer
+	Uint32 *p = det_Img->pixels;
+	
+	int w = Image->w, h = Image->h;
+	for(i=0;i<h; i++){
+		for(j=0;j<w;j++){
+			p[i*w + j] = 255 - SDL_abs(p[i*w +j] - calc_moy(det_Img,i,j,TAILLE));
+		}
+	}
+	return det_Img;	
+}
+
 SDL_Surface* filtre_moyenneur(SDL_Surface *Image){
 	SDL_Surface *moy_Img=NULL;
 	int i,j,TAILLE=3;
@@ -139,9 +158,11 @@ SDL_Surface* filtre_moyenneur(SDL_Surface *Image){
 //    moy_Img=imfilter(Image,&filtre);
 
 	moy_Img=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+
 	SDL_Rect posMoy;
 	posMoy.x=0;
 	posMoy.y=0;
+
 	SDL_BlitSurface(Image,NULL,moy_Img,&posMoy); // Copie l'image de base pour ne pas la détériorer
 	Uint32 *p = moy_Img->pixels;
 	

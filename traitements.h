@@ -8,6 +8,7 @@ SDL_Surface* bin_img(SDL_Surface *Image,int seuil, Uint32 couleur1, Uint32 coule
 SDL_Surface* quant_img(SDL_Surface *Image,int seuil,int nb_bits,Uint32 **couleurs);
 SDL_Surface* lux_img(SDL_Surface *Image, int seuil);
 Uint8 f_lux(Uint8 c, double n);
+SDL_Surface* detourage(SDL_Surface *Image);
 SDL_Surface* filtre_moyenneur(SDL_Surface *Image);
 static Uint32 calc_moy(SDL_Surface *Image, int i, int j, int n);
 SDL_Surface* imfilter(SDL_Surface *Image,struct Filter* filtre);

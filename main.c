@@ -105,6 +105,9 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 				break;
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym){
+					case SDLK_d:
+						Image2=detourage(Image);
+						break;
 					case SDLK_i:
 						Image2=inv_img(Image);
 						break;
