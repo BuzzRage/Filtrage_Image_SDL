@@ -2,6 +2,7 @@
 #define CONSTANTES_H_INCLUDED
 
 //#define DEBUG  // Uncomment to debug
+#define INFO  // Uncomment to print info
 
 // Couleurs
 #define ROUGE 	SDL_MapRGB(Image->format,255,0,0)

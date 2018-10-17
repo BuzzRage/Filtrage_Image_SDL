@@ -33,7 +33,11 @@ SDL_Surface* ng_img(SDL_Surface *Image){
 			putpixel(ng_Img, i, j, SDL_MapRGB(Image->format, gris, gris, gris));
 		}
 	}
+	
+	#ifdef INFO
 	printf("Rouge:%d Vert:%d Bleu:%d Gris:%d\n", c.r, c.g, c.b, gris);
+	#endif
+	
 	return ng_Img;
 }
 
@@ -59,10 +63,14 @@ SDL_Surface* quant_img(SDL_Surface *Image,int seuil,int nb_bits,Uint32 **couleur
 	for(i=0;i<nb_bits;i++){
 		nb_couleurs*= 2;
 	}
+	
+	#ifdef INFO
 	for(i=0;i<nb_couleurs;i++){
 		printf("\n====== Couleurs fonction %d: %8x",i,couleurs[i]);
 	}
 	printf("Il y a %d couleurs.\n",nb_couleurs);
+	#endif
+	
 	quant_Img=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
 	quant_Img=ng_img(Image); // Récupère l'image en niveau de gris pour seuillage
 	for(i=0;i<Image->w;i++){
@@ -84,7 +92,11 @@ SDL_Surface* lux_img(SDL_Surface *Image, int seuil){
 	SDL_Surface *lux_Img=NULL;
 	int i,j;
 	double n=(double)seuil/128; // n = [ 0 ; 2 ]
+	
+	#ifdef INFO
 	printf("SEUIL LUX: %d N: %f\n",seuil,n);
+	#endif
+	
 	SDL_Color color;
 	lux_Img=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
 	for(i=0;i<Image->w; i++){
@@ -183,10 +195,14 @@ static Uint32 calc_moy(SDL_Surface *surface, int i, int j, int n) // https://zes
 			sum_g += color.g;
 			sum_b += color.b;
 		}
+	
+	#ifdef INFO
 	if(nb_pixel==0){
 		printf("\ni:%d\tj:%d\nnb_pixel=%d",i,j,nb_pixel);
 		//nb_pixel=1;
 	}
+	#endif
+	
 	return SDL_MapRGB(surface->format, sum_r / nb_pixel, sum_g / nb_pixel, sum_b / nb_pixel);
 }
 
