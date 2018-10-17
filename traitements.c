@@ -5,30 +5,14 @@
 #include "constantes.h"
 #include "traitements.h"
 
-/* TODO:
-    -Résolution spatiale (échantillonage spatiale)
-    -Masquage de zone (seuil et position 'a' paramètrables)
-    -Étirement de l'histogramme (correction de la dynamique)
-    -Égalisation d'histogramme (pour améliorer le contraste)
-    -Histogramme exponentiel
-    -Histogramme cubique
-    -Histogramme par couleur quantifée
-    -Constraste (augmentation et diminution)
-    -Floutage
-    -Détourage
-    -Représentation spectrale
-    -Bruit gaussien / sel et poivre
-    -Filtre moyenneur
-    -Filtre médian
-*/
-
 SDL_Surface* inv_img(SDL_Surface *Image){
 	SDL_Surface *inv_Img=NULL;
 	int i,j;
 	inv_Img = SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+	
 	for(i=0;i<Image->w;i++){
 		for(j=0;j<Image->h;j++){
-			putpixel(inv_Img,i,j,SDL_MapRGB(inv_Img->format,255,255,255)-getpixel(Image,i,j));
+			putpixel(inv_Img, i, j, SDL_MapRGB(inv_Img->format,255,255,255) - getpixel(Image,i,j));
 		}
 	}
 	return inv_Img;
@@ -40,15 +24,16 @@ SDL_Surface* ng_img(SDL_Surface *Image){
 	SDL_Color c;
 	int i,j,gris;
 	ng_Img=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+	
 	for(i=0;i<Image->w;i++){
 		for(j=0;j<Image->h;j++){
-			SDL_GetRGB(getpixel(Image,i,j),Image->format,&c.r,&c.g,&c.b); // Récupère la couleur du pixel et la met dans la structure SDL_Color
+			SDL_GetRGB(getpixel(Image,i,j), Image->format,&c.r,&c.g,&c.b); // Récupère la couleur du pixel et la met dans la structure SDL_Color
 			//gris=(c.r+c.g+c.b)/3; // Gris approximé grossièrement
-			gris=0.2125*c.r+0.7154*c.g+0.0721*c.b; // Gris naturel proche de l'oeil humain
-			putpixel(ng_Img,i,j,SDL_MapRGB(Image->format,gris,gris,gris));
+			gris = 0.2125*c.r+0.7154*c.g+0.0721*c.b; // Gris naturel proche de l'oeil humain
+			putpixel(ng_Img, i, j, SDL_MapRGB(Image->format, gris, gris, gris));
 		}
 	}
-	printf("Rouge:%d Vert:%d Bleu:%d Gris:%d\n",c.r,c.g,c.b,gris);
+	printf("Rouge:%d Vert:%d Bleu:%d Gris:%d\n", c.r, c.g, c.b, gris);
 	return ng_Img;
 }
 
