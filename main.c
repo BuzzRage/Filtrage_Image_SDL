@@ -9,45 +9,45 @@ void init(struct verrou v); // A définir pour alléger la lecture du code
 
 struct verrou v;
 
-int main(int argc, char *argv[])
-{
-v.chargementOK=0;
-//     freopen("CON", "w", stdout); // Redirection de la sortie (autorisation en écriture) sur console
-//     freopen("CON", "r", stdin);  // Redirection de l'entrée (autorisation en lecture) sur console
-//     freopen("CON", "w", stderr); // Redirection de la sortie d'erreur (autorisation en écriture) sur console
-SDL_Surface *screen=NULL, *Image=NULL;
-SDL_Rect posImage;
-posImage.x=0;
-posImage.y=0;
-char nom_fichier[50];
-SDL_Init(SDL_INIT_VIDEO);
+int main(int argc, char *argv[]){
+	v.chargementOK=0;
+	//     freopen("CON", "w", stdout); // Redirection de la sortie (autorisation en écriture) sur console
+	//     freopen("CON", "r", stdin);  // Redirection de l'entrée (autorisation en lecture) sur console
+	//     freopen("CON", "w", stderr); // Redirection de la sortie d'erreur (autorisation en écriture) sur console
+	SDL_Surface *screen=NULL, *Image=NULL;
+	SDL_Rect posImage;
+	posImage.x=0;
+	posImage.y=0;
 
-if(argc > 1){
-if(Image = IMG_Load(argv[1]))
-v.chargementOK=1;
-}
+	char nom_fichier[50];
+	SDL_Init(SDL_INIT_VIDEO);
 
-while(!v.chargementOK){
-printf("Vous voulez chargez quelle image ? (ne pas depasser 50 caracteres)\nNom: ");
-scanf("%s",&nom_fichier);
-Image= IMG_Load(nom_fichier);
-if(Image)
-v.chargementOK=1;
-else
-printf("\nErreur de chargement, verifiez le nom de l'image.\n");
-}
+	if(argc > 1){
+		if(Image = IMG_Load(argv[1]))
+			v.chargementOK=1;
+	}
 
-screen=SDL_SetVideoMode(2*Image->w+LARGEUR_SEUIL, Image->h, 32, SDL_HWSURFACE);
-SDL_WM_SetCaption("Traitement d'image", NULL);
+	while(!v.chargementOK){
+		printf("Vous voulez chargez quelle image ? (ne pas depasser 50 caracteres)\nNom: ");
+		scanf("%s",&nom_fichier);
+		Image= IMG_Load(nom_fichier);
+		if(Image)
+			v.chargementOK=1;
+		else
+			printf("\nErreur de chargement, verifiez le nom de l'image.\n");
+	}
 
-SDL_BlitSurface(Image, NULL, screen, &posImage);
-pause(Image,screen);
+	screen=SDL_SetVideoMode(2*Image->w+LARGEUR_SEUIL, Image->h, 32, SDL_HWSURFACE);
+	SDL_WM_SetCaption("Traitement d'image", NULL);
 
-SDL_EnableKeyRepeat(0,0);
-SDL_FreeSurface(Image);
-SDL_Quit();
+	SDL_BlitSurface(Image, NULL, screen, &posImage);
+	pause(Image,screen);
 
-return EXIT_SUCCESS;
+	SDL_EnableKeyRepeat(0,0);
+	SDL_FreeSurface(Image);
+	SDL_Quit();
+
+	return EXIT_SUCCESS;
 }
 
 /* Usage:

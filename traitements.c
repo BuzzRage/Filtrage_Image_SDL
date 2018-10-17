@@ -12,7 +12,7 @@ SDL_Surface* inv_img(SDL_Surface *Image){
 	
 	for(i=0;i<Image->w;i++){
 		for(j=0;j<Image->h;j++){
-			putpixel(inv_Img, i, j, SDL_MapRGB(inv_Img->format,255,255,255) - getpixel(Image,i,j));
+			putpixel(inv_Img, i, j, SDL_MapRGB(inv_Img->format, 255, 255, 255) - getpixel(Image, i, j));
 		}
 	}
 	return inv_Img;
@@ -27,9 +27,9 @@ SDL_Surface* ng_img(SDL_Surface *Image){
 	
 	for(i=0;i<Image->w;i++){
 		for(j=0;j<Image->h;j++){
-			SDL_GetRGB(getpixel(Image,i,j), Image->format,&c.r,&c.g,&c.b); // Récupère la couleur du pixel et la met dans la structure SDL_Color
+			SDL_GetRGB(getpixel(Image,i,j), Image->format, &c.r, &c.g, &c.b); // Récupère la couleur du pixel et la met dans la structure SDL_Color
 			//gris=(c.r+c.g+c.b)/3; // Gris approximé grossièrement
-			gris = 0.2125*c.r+0.7154*c.g+0.0721*c.b; // Gris naturel proche de l'oeil humain
+			gris=0.2125*c.r+0.7154*c.g+0.0721*c.b; // Gris naturel proche de l'oeil humain
 			putpixel(ng_Img, i, j, SDL_MapRGB(Image->format, gris, gris, gris));
 		}
 	}
@@ -44,8 +44,13 @@ SDL_Surface* ng_img(SDL_Surface *Image){
 SDL_Surface* bin_img(SDL_Surface *Image,int seuil, Uint32 couleur_down, Uint32 couleur_up){
 	SDL_Surface *bin_Img=NULL;
 	int i,j;
+	SDL_Rect pos0;
+	pos0.x=0;
+	pos0.y=0;
 	bin_Img=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
-	bin_Img=ng_img(Image); // Récupère l'image en niveau de gris pour seuillage
+	SDL_BlitSurface(Image, NULL,bin_Img,&pos0);
+	bin_Img=ng_img(bin_Img); // Récupère l'image en niveau de gris pour seuillage
+	
 	for(i=0;i<Image->w;i++){
 		for(j=0;j<Image->h;j++){
 			if(getpixel(bin_Img,i,j)<SDL_MapRGB(Image->format,seuil,seuil,seuil))
@@ -120,14 +125,16 @@ Uint8 f_lux(Uint8 c, double n){
 }
 
 SDL_Surface* detourage(SDL_Surface *Image){
-	SDL_Surface *det_Img=NULL;
-	SDL_Rect posMoy;
-	posMoy.x=0;
-	posMoy.y=0;
+	SDL_Surface *det_Img=NULL;	
+	SDL_Rect pos0;
+	pos0.x=0;
+	pos0.y=0;
+	int i,j,TAILLE=3;
 	
 	det_Img=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
-	SDL_BlitSurface(Image,NULL,det_Img,&posMoy); // Copie l'image de base pour ne pas la détériorer
+	SDL_BlitSurface(Image,NULL,det_Img,&pos0); // Copie l'image de base pour ne pas la détériorer
 	Uint32 *p = det_Img->pixels;
+
 	
 	int w = Image->w, h = Image->h;
 	for(i=0;i<h; i++){
@@ -141,6 +148,9 @@ SDL_Surface* detourage(SDL_Surface *Image){
 SDL_Surface* filtre_moyenneur(SDL_Surface *Image){
 	SDL_Surface *moy_Img=NULL;
 	int i,j,TAILLE=3;
+	SDL_Rect pos0;
+	pos0.x=0;
+	pos0.y=0;
 //    struct Filter filtre;
 //    char filtre_tab[3][3];
 //    for(i=0;i<3;i++){
@@ -156,11 +166,7 @@ SDL_Surface* filtre_moyenneur(SDL_Surface *Image){
 
 	moy_Img=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
 
-	SDL_Rect posMoy;
-	posMoy.x=0;
-	posMoy.y=0;
-
-	SDL_BlitSurface(Image,NULL,moy_Img,&posMoy); // Copie l'image de base pour ne pas la détériorer
+	SDL_BlitSurface(Image,NULL,moy_Img,&pos0); // Copie l'image de base pour ne pas la détériorer
 	Uint32 *p = moy_Img->pixels;
 	
 	int w = Image->w, h = Image->h;
