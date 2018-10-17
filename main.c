@@ -63,7 +63,7 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 	int continuer = 1,seuil=0,nb_bits=3,nb_couleurs=1,i=0;
 	SDL_Event event;
 	SDL_Surface *Image2=NULL,*S_seuil=NULL,*S_quant[64];
-	SDL_Rect posImg2,posSeuil;
+	SDL_Rect posImg2, posSeuil, pos0;
 	Uint8 *keystate = NULL;
 	Uint32 *couleur_up,*couleur_down;
 	Uint32 couleurs[64],couleur; // 64 couleurs => 6 bits
@@ -71,6 +71,8 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 	// Affectations
 	S_seuil=SDL_CreateRGBSurface(SDL_HWSURFACE, LARGEUR_SEUIL, Image->h, 32, 0, 0, 0, 0);
 	Image2=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+	pos0.x = 0;
+	pos0.y = 0;
 	posImg2.x=Image->w;
 	posImg2.y=0;
 	posSeuil.x=2*Image->w;
@@ -127,11 +129,14 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 						break;
 					case SDLK_b: // Reset du seuil de binarisation
 						seuil=128;
-						if(v.binarisation)
+						if(v.binarisation){
 							v.binarisation=0;
-						else
+							SDL_BlitSurface(Image,NULL,Image2,&pos0);
+						}
+						else{
 							v.binarisation=1;
-						Image2=bin_img(Image,seuil,couleur_down,couleur_up);
+							Image2=bin_img(Image,seuil,couleur_down,couleur_up);
+						}
 						break;
 					case SDLK_q:
 						if(v.quantification)
