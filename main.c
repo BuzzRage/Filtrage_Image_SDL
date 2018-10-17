@@ -126,12 +126,12 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 						Image2=ng_img(Image);
 						break;
 					case SDLK_b: // Reset du seuil de binarisation
-						seuil=0;
+						seuil=128;
 						if(v.binarisation)
 							v.binarisation=0;
 						else
 							v.binarisation=1;
-						Image2=bin_img(Image,seuil,nb_bits,couleur_down,couleur_up);
+						Image2=bin_img(Image,seuil,couleur_down,couleur_up);
 						break;
 					case SDLK_q:
 						if(v.quantification)
