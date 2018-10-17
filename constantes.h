@@ -1,6 +1,8 @@
 #ifndef CONSTANTES_H_INCLUDED
 #define CONSTANTES_H_INCLUDED
 
+//#define DEBUG  // Uncomment to debug
+
 // Couleurs
 #define ROUGE 	SDL_MapRGB(Image->format,255,0,0)
 #define VERT  	SDL_MapRGB(Image->format,0,255,0)

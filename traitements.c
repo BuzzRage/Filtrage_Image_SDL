@@ -171,8 +171,10 @@ SDL_Surface* filtre_moyenneur(SDL_Surface *Image){
 		for(j=0;j<w;j++){
 			putpixel(moy_Img,j,i, calc_moy(moy_Img,i,j,TAILLE));
 			//p[i*w + j] = calc_moy(moy_Img,i,j,TAILLE);
-			if(i == h/2 && j == w/2)
-				SDL_SaveBMP(moy_Img,"mid.bmp");
+			#ifdef DEBUG
+				if(i == h/2 && j == w/2)
+				//SDL_SaveBMP(moy_Img,"mid.bmp");
+			#endif
 		}
 	}
 	return moy_Img;
