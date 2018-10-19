@@ -10,6 +10,7 @@
 #define BLEU  	SDL_MapRGB(Image->format,0,0,255)
 #define NOIR  	SDL_MapRGB(Image->format,0,0,0)
 #define BLANC 	SDL_MapRGB(Image->format,255,255,255)
+#define GRIS   	SDL_MapRGB(Image->format,128,128,128)
 #define JAUNE 	SDL_MapRGB(Image->format,255,255,0)
 #define CYAN  	SDL_MapRGB(Image->format,0,255,255)
 #define MAGENTA SDL_MapRGB(Image->format,255,0,255)
