@@ -124,6 +124,40 @@ Uint8 f_lux(Uint8 c, double n){
 	return (Uint8) (255 * pow((double) c / 255, n));
 }
 
+SDL_Surface* contrast_img(SDL_Surface *Image, int seuil){
+	SDL_Surface *ctst_Img=NULL;
+	int i,j;
+	double n=(double)seuil/128; // n = [ 0 ; 2 ]
+	
+	#ifdef INFO
+	printf("SEUIL LUX: %d N: %f\n",seuil,n);
+	#endif
+	
+	SDL_Color color;
+	ctst_Img=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+	for(i=0;i<Image->w; i++){
+		for(j=0;j<Image->h;j++){
+			// Méthode 1
+			SDL_GetRGB(getpixel(Image,i,j), Image->format, &color.r, &color.g, &color.b);
+			//SDL_GetRGB(Image->pixels+j * Image->w + i, Image->format, &color.r, &color.g, &color.b);
+			color.r = f_contrast(color.r, n);
+			color.g = f_contrast(color.g, n);
+			color.b = f_contrast(color.b, n);
+			putpixel(ctst_Img,i,j, SDL_MapRGB(Image->format, color.r, color.g, color.b));
+			// Méthode 2
+			
+		}
+	}
+	return ctst_Img;
+}
+
+Uint8 f_contrast(Uint8 c, double n){
+	if(c <= 255 / 2)
+		return (Uint8)( (255/2) * pow((double) 2 * c / 255, n));
+	else
+		return 255 - f_contrast(255 - c, n);
+}
+
 SDL_Surface* detourage(SDL_Surface *Image){
 	SDL_Surface *det_Img=NULL;	
 	SDL_Rect pos0;
