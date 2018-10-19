@@ -37,6 +37,7 @@ struct verrou{
 	unsigned char binarisation;
 	unsigned char quantification:1;
 	unsigned char lux:1;
+	unsigned char ctst:1;
 	unsigned char chargementOK:1;
 	unsigned char seuil_haschanged:1;
 };
