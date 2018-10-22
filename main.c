@@ -42,6 +42,11 @@ int main(int argc, char *argv[]){
 	SDL_WM_SetCaption("Traitement d'image", NULL);
 
 	SDL_BlitSurface(Image, NULL, screen, &posImage);
+	
+	#ifdef INFO
+	printf("\nImage format: %s.",Image->format);
+	#endif
+	
 	pause(Image,screen);
 
 	SDL_EnableKeyRepeat(0,0);
@@ -247,6 +252,10 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 			SDL_FillRect(S_seuil, NULL, SDL_MapRGB(S_seuil->format, seuil, seuil, seuil));
 			SDL_BlitSurface(S_seuil,NULL,screen,&posSeuil);
 		}
+		else if(v.ctst){
+			S_seuil = Slider(S_seuil->w,S_seuil->h,&posSeuil);
+			SDL_BlitSurface(S_seuil,NULL,screen,&posSeuil);			
+		}
 		else if(v.quantification){
 			for(i=0;i<nb_couleurs;i++){ // Palette de couleur
 				S_quant[i]=SDL_CreateRGBSurface(SDL_HWSURFACE, LARGEUR_SEUIL, Image->h/nb_couleurs, 32, 0, 0, 0, 0);
@@ -255,6 +264,10 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 				posSeuil.y+=(Image->h)/nb_couleurs;
 			}
 			posSeuil.y=0;
+		}
+		else{
+			SDL_FillRect(S_seuil, NULL, SDL_MapRGB(S_seuil->format, 0, 0, 0));
+			SDL_BlitSurface(S_seuil,NULL,screen,&posSeuil);			
 		}
 		SDL_BlitSurface(Image2, NULL, screen, &posImg2);
 		SDL_Flip(screen);
