@@ -11,6 +11,7 @@ Il permet de réaliser des opérations simples de filtrage et de traitement d'im
 Il permet de:
 * Inverser les couleurs (touche 'i')
 * Changer la luminosité (touche 'l' + fleche haut/bas)
+* Changer le contraste (touche 'c' + fleche haut/bas)
 * Filtre moyenneur (floutage gaussien) (touche 'm')
 * Détourage primaire (touche 'd')
 * Passer en noir & blanc (touche 'n')
@@ -28,7 +29,6 @@ Il permet de:
 * Histogramme exponentiel
 * Histogramme cubique
 * Histogramme par couleur quantifée
-* Constraste (augmentation et diminution)
 * Détourage
 * Représentation spectrale
 * Bruit gaussien / sel et poivre
