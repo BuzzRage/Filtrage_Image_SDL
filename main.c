@@ -95,7 +95,7 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 	}
 
 	printf("%d %d %d",couleurs[3],SDL_MapRGB(screen->format,255,0,0),Image->format);
-	v.binarisation=0; v.quantification=0; v.seuil_haschanged=0; v.lux=0;
+	v.binarisation=0; v.quantification=0; v.seuil_haschanged=0; v.lux=0, v.ctst=0;
 
 	SDL_EnableKeyRepeat(DELAY_KEYREPEAT,INTERVAL);
 
@@ -114,13 +114,21 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 						Image2=inv_img(Image);
 						break;
 					case SDLK_l:
-						seuil=0;
+						seuil=127;
 						if(v.lux)
 							v.lux=0;
 						else
 							v.lux=1;
 						Image2=lux_img(Image,seuil);
 						break;
+					case SDLK_c:
+						seuil=127;
+						if(v.ctst)
+							v.ctst=0;
+						else
+							v.ctst=1;
+						Image2=contrast_img(Image,seuil);
+						break;						
 					case SDLK_m:
 						Image2=filtre_moyenneur(Image);
 						break;
@@ -173,6 +181,16 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 							}
 							Image2=lux_img(Image,seuil);
 						}
+						else if(v.ctst){
+							if(seuil > 0){
+								seuil--;
+								v.seuil_haschanged=1;
+							} else if(seuil==0){
+								seuil=255;
+								v.seuil_haschanged=1;
+							}
+							Image2=contrast_img(Image,seuil);
+						}
 						break;
 					case SDLK_UP:
 						if(v.binarisation){
@@ -194,6 +212,16 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 								v.seuil_haschanged=1;
 							}
 								Image2=lux_img(Image,seuil);
+						}
+						else if(v.ctst){
+							if(seuil < 255){
+								seuil++;
+								v.seuil_haschanged=1;
+							} else if(seuil==255){
+								seuil=0;
+								v.seuil_haschanged=1;
+							}
+							Image2=contrast_img(Image,seuil);
 						}
 						break;
 				}
