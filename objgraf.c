@@ -26,6 +26,7 @@ SDL_Surface* Slider(int w, int h, SDL_Rect *pos0){
 // 		SDL_BlitSurface(p, NULL, bg, &posPixel);
 // 	}
 	
+
 	SDL_Surface *p = SDL_CreateRGBSurface(SDL_HWSURFACE, 16, 16, 32, 0, 0, 0, 0);
 	SDL_FillRect(p, NULL, SDL_MapRGB(bg->format,255,255,0));
 	posPixel.x = w/2 - 7;
@@ -33,5 +34,5 @@ SDL_Surface* Slider(int w, int h, SDL_Rect *pos0){
 	SDL_BlitSurface(p, NULL, bg, &posPixel);
 
 	return bg;
-}
 
+}
