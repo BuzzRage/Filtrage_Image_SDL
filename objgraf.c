@@ -33,5 +33,4 @@ SDL_Surface* Slider(int w, int h, SDL_Rect *pos0){
 	SDL_BlitSurface(p, NULL, bg, &posPixel);
 
 	return bg;
-
 }
