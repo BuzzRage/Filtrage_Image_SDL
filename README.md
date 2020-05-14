@@ -20,6 +20,7 @@ Il permet de:
 
 # ToDo:
 * Faire Doc
+* Utiliser getopt() pour les option et faire une man page pour la CLI
 * Améliorer le Makefile
 * Résolution spatiale (échantillonage spatiale)
 * Masquage de zone (seuil et position 'a' paramètrables)
