@@ -16,8 +16,8 @@ int main(int argc, char *argv[]){
 	//     freopen("CON", "w", stderr); // Redirection de la sortie d'erreur (autorisation en écriture) sur console
 	SDL_Surface *screen=NULL, *Image=NULL;
 	SDL_Rect posImage;
-	posImage.x=0;
-	posImage.y=0;
+	posImage.x = 0;
+	posImage.y = 0;
 
 	char nom_fichier[50];
 	SDL_Init(SDL_INIT_VIDEO);
@@ -55,6 +55,16 @@ int main(int argc, char *argv[]){
 	return EXIT_SUCCESS;
 }
 
+
+void init(struct verrou v){
+	v.binarisation=0; 
+	v.quantification=0; 
+	v.seuil_haschanged=0; 
+	v.lux=0;
+	v.ctst=0;
+}
+
+
 /* Usage:
 -1: Demande de changement de couleur 1 (couleur_down)
 -2: Demande de changement de couleur 2 (couleur_up)
@@ -70,37 +80,38 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 	SDL_Surface *Image2=NULL,*S_seuil=NULL,*S_quant[64];
 	SDL_Rect posImg2, posSeuil, pos0;
 	Uint8 *keystate = NULL;
-	Uint32 *couleur_up,*couleur_down;
+	Uint32 *couleur_up, *couleur_down;
 	Uint32 couleurs[64],couleur; // 64 couleurs => 6 bits
 
 	// Affectations
-	S_seuil=SDL_CreateRGBSurface(SDL_HWSURFACE, LARGEUR_SEUIL, Image->h, 32, 0, 0, 0, 0);
-	Image2=SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
-	pos0.x = 0;
-	pos0.y = 0;
-	posImg2.x=Image->w;
-	posImg2.y=0;
-	posSeuil.x=2*Image->w;
-	posSeuil.y=0;
+	S_seuil = SDL_CreateRGBSurface(SDL_HWSURFACE, LARGEUR_SEUIL, Image->h, 32, 0, 0, 0, 0);
+	Image2  = SDL_CreateRGBSurface(SDL_HWSURFACE, Image->w, Image->h, 32, 0, 0, 0, 0);
+	
+	pos0.x     = 0;
+	pos0.y 		 = 0;
+	posImg2.x  = Image->w;
+	posImg2.y  = 0;
+	posSeuil.x = 2*Image->w;
+	posSeuil.y = 0;
 
-	couleur_up	=BLANC;
-	couleur_down=NOIR;
+	couleur_up	 = BLANC;
+	couleur_down = NOIR;
 
-	couleurs[0]=NOIR;
-	couleurs[1]=BLEU;
-	couleurs[2]=CYAN;
-	couleurs[3]=VERT;
-	couleurs[4]=JAUNE;
-	couleurs[5]=ORANGE;
-	couleurs[6]=ROUGE;
-	couleurs[7]=BLANC;
+	couleurs[0]  = NOIR;
+	couleurs[1]  = BLEU;
+	couleurs[2]  = CYAN;
+	couleurs[3]  = VERT;
+	couleurs[4]  = JAUNE;
+	couleurs[5]  = ORANGE;
+	couleurs[6]  = ROUGE;
+	couleurs[7]  = BLANC;
 
 	for(i=0;i<nb_bits;i++){
 		nb_couleurs*=2;
 	}
 
 	printf("%d %d %d",couleurs[3],SDL_MapRGB(screen->format,255,0,0),Image->format);
-	v.binarisation=0; v.quantification=0; v.seuil_haschanged=0; v.lux=0, v.ctst=0;
+	init(v);
 
 	SDL_EnableKeyRepeat(DELAY_KEYREPEAT,INTERVAL);
 
