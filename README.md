@@ -32,7 +32,6 @@ Il permet de:
 * Histogramme exponentiel
 * Histogramme cubique
 * Histogramme par couleur quantifée
-* Constraste (augmentation et diminution)
 * Détourage
 * Représentation spectrale
 * Bruit gaussien / sel et poivre
