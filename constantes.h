@@ -1,17 +1,9 @@
 #ifndef CONSTANTES_H_INCLUDED
 #define CONSTANTES_H_INCLUDED
 
-/*
- Changements pour le passage de SDL à SDL2 (https://jeux.developpez.com/tutoriels/sdl-2/guide-migration/*):
-			- SDL_HWSURFACE semble ne plus exister (utiliser SDL_SWSURFACE à la place)
-			- SDL_SetVideoMode() devient SDL_CreateWindow()
-				- SDL_CreateWindow() renvoie un SDL_Window* (et non un SDL_Surface*)
-			- SDL_WM_SetCaption() n'existe plus
-			- main.c: SDL_EnableKeyRepeat() 
-			- pause.c: SDL_EnableKeyRepeat() 
-			- pause.c: SDL_Flip() 
-			- Passer de SDL_Surface à SDL_Texture
-*/
+
+#define DEBUG  // Uncomment to debug
+#define INFO  // Uncomment to print info
 
 // Couleurs
 #define ROUGE 	SDL_MapRGB(Image->format,255,0,0)
@@ -19,8 +11,9 @@
 #define BLEU  	SDL_MapRGB(Image->format,0,0,255)
 #define NOIR  	SDL_MapRGB(Image->format,0,0,0)
 #define BLANC 	SDL_MapRGB(Image->format,255,255,255)
-#define JAUNE   SDL_MapRGB(Image->format,255,255,0)
-#define CYAN    SDL_MapRGB(Image->format,0,255,255)
+#define GRIS   	SDL_MapRGB(Image->format,128,128,128)
+#define JAUNE 	SDL_MapRGB(Image->format,255,255,0)
+#define CYAN  	SDL_MapRGB(Image->format,0,255,255)
 #define MAGENTA SDL_MapRGB(Image->format,255,0,255)
 #define ORANGE 	SDL_MapRGB(Image->format,255,127,0)
 /*
@@ -31,21 +24,30 @@ Uint32 couleur(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 */
 
 #define DELAY_KEYREPEAT 10
-#define INTERVAL 100
-#define LARGEUR_SEUIL 50
+#define INTERVAL 				100
+#define LARGEUR_SEUIL 	50
+
+// struct verrou{
+//   unsigned char binarisation:1;
+//   unsigned char quantification:1;
+//   unsigned char lux:1;
+//   unsigned char chargementOK:1;
+//   unsigned char seuil_haschanged:1;
+// };
 
 struct verrou{
-  unsigned char binarisation:1;
-  unsigned char quantification:1;
-  unsigned char lux:1;
-  unsigned char chargementOK:1;
-  unsigned char seuil_haschanged:1;
+	unsigned char binarisation;
+	unsigned char quantification:1;
+	unsigned char lux:1;
+	unsigned char ctst:1;
+	unsigned char chargementOK:1;
+	unsigned char seuil_haschanged:1;
 };
 
 struct Filter{
-    unsigned char row;
-    unsigned char colomn;
-    unsigned char **Tab;
+	unsigned char row;
+	unsigned char colomn;
+	unsigned char **Tab;
 };
 
 #endif // CONSTANTES_H_INCLUDED
