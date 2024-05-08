@@ -18,6 +18,8 @@ Il permet de:
 * Quantification n-bits (setup du nb de bits + touche 'q' + fleche haut/bas)
 * Exporter le résultat dans un fichier nommé "save.bmp" (touche 's')
 
+![Illustration de ce que fait le programme](./lenna-example.png)
+
 # ToDo:
 * Faire Doc
 * Utiliser getopt() pour les option et faire une man page pour la CLI
