@@ -3,6 +3,7 @@
 #include <SDL.h>
 #include <SDL/SDL_image.h>
 #include "constantes.h"
+#include "objgraf.h"
 #include "traitements.h"
 
 void pause(SDL_Surface *Image,SDL_Surface *screen);
