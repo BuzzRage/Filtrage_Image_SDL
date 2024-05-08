@@ -1,7 +1,7 @@
 #ifndef CONSTANTES_H_INCLUDED
 #define CONSTANTES_H_INCLUDED
 
-//#define DEBUG  // Uncomment to debug
+#define DEBUG  // Uncomment to debug
 #define INFO  // Uncomment to print info
 
 // Couleurs

@@ -3,17 +3,18 @@
 #include <SDL.h>
 #include <SDL/SDL_image.h>
 #include "constantes.h"
+#include "traitements.h"
 
 void pause(SDL_Surface *Image,SDL_Surface *screen);
-void init(struct verrou v); // A définir pour alléger la lecture du code
+void init(struct verrou v); // A dÃ©finir pour allÃ©ger la lecture du code
 
 struct verrou v;
 
 int main(int argc, char *argv[]){
 	v.chargementOK=0;
-	//     freopen("CON", "w", stdout); // Redirection de la sortie (autorisation en écriture) sur console
-	//     freopen("CON", "r", stdin);  // Redirection de l'entrée (autorisation en lecture) sur console
-	//     freopen("CON", "w", stderr); // Redirection de la sortie d'erreur (autorisation en écriture) sur console
+	//     freopen("CON", "w", stdout); // Redirection de la sortie (autorisation en Ã©criture) sur console
+	//     freopen("CON", "r", stdin);  // Redirection de l'entrÃ©e (autorisation en lecture) sur console
+	//     freopen("CON", "w", stderr); // Redirection de la sortie d'erreur (autorisation en Ã©criture) sur console
 	SDL_Surface *screen=NULL, *Image=NULL;
 	SDL_Rect posImage;
 	posImage.x=0;
@@ -54,10 +55,10 @@ int main(int argc, char *argv[]){
 -1: Demande de changement de couleur 1 (couleur_down)
 -2: Demande de changement de couleur 2 (couleur_up)
 
--b: binarisation (seuillage paramètrable)
--i: inversion (négatif)
+-b: binarisation (seuillage paramÃ©trable)
+-i: inversion (nÃ©gatif)
 -n: transformation en niveaux de gris (noir et blanc)
--q: quantification (avec nb de bits paramètrable)
+-q: quantification (avec nb de bits paramÃ©trable)
 */
 void pause(SDL_Surface *Image,SDL_Surface *screen){
 	int continuer = 1,seuil=0,nb_bits=3,nb_couleurs=1,i=0;
@@ -65,7 +66,7 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 	SDL_Surface *Image2=NULL,*S_seuil=NULL,*S_quant[64];
 	SDL_Rect posImg2, posSeuil, pos0;
 	Uint8 *keystate = NULL;
-	Uint32 *couleur_up,*couleur_down;
+	Uint32 couleur_up, couleur_down;
 	Uint32 couleurs[64],couleur; // 64 couleurs => 6 bits
 
 	// Affectations
@@ -78,8 +79,8 @@ void pause(SDL_Surface *Image,SDL_Surface *screen){
 	posSeuil.x=2*Image->w;
 	posSeuil.y=0;
 
-	couleur_up	=BLANC;
-	couleur_down=NOIR;
+	couleur_up	= BLANC;
+	couleur_down= NOIR;
 
 	couleurs[0]=NOIR;
 	couleurs[1]=BLEU;

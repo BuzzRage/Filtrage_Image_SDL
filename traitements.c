@@ -33,7 +33,7 @@ SDL_Surface* ng_img(SDL_Surface *Image){
 			putpixel(ng_Img, i, j, SDL_MapRGB(Image->format, gris, gris, gris));
 		}
 	}
-	
+
 	#ifdef INFO
 	printf("Rouge:%d Vert:%d Bleu:%d Gris:%d\n", c.r, c.g, c.b, gris);
 	#endif
@@ -62,7 +62,7 @@ SDL_Surface* bin_img(SDL_Surface *Image,int seuil, Uint32 couleur_down, Uint32 c
 	return bin_Img;
 }
 
-SDL_Surface* quant_img(SDL_Surface *Image,int seuil,int nb_bits,Uint32 **couleurs){ // problème format couleur (lenna != cb)
+SDL_Surface* quant_img(SDL_Surface *Image,int seuil,int nb_bits,Uint32 *couleurs){ // problème format couleur (lenna != cb)
 	SDL_Surface *quant_Img=NULL;
 	int i,j,k,nb_couleurs=1;
 	for(i=0;i<nb_bits;i++){
@@ -175,7 +175,7 @@ SDL_Surface* filtre_moyenneur(SDL_Surface *Image){
 			putpixel(moy_Img,j,i, calc_moy(moy_Img,i,j,TAILLE));
 			//p[i*w + j] = calc_moy(moy_Img,i,j,TAILLE);
 			#ifdef DEBUG
-				if(i == h/2 && j == w/2)
+				//if(i == h/2 && j == w/2)
 				//SDL_SaveBMP(moy_Img,"mid.bmp");
 			#endif
 		}
