@@ -37,3 +37,4 @@ Il permet de:
 * Bruit gaussien / sel et poivre
 * Filtre moyenneur
 * Filtre médian
+* Ajouter slider en plus des touches haut/bas pour les variations de seuils
