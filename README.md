@@ -1,10 +1,10 @@
 # Filtrage_Image_SDL
 Filtrage d'image en C en utilisant la Simple DirectMedia Layer
 
-Ce programme utilise la SDL 1.2 (portage vers SDL 2 en cours).
+Ce programme utilise la SDL 2.0.
 Il a été réalisé sous linux et nécessite d'installer les paquets complémentaires suivants:
-* libsdl-image1.2
-* libsdl-mixer1.2
+* libsdl2-image-dev
+* libsdl2-dev
 
 Il permet de réaliser des opérations simples de filtrage et de traitement d'image.
 
@@ -25,6 +25,8 @@ Il permet de:
 * Faire Doc
 * Utiliser getopt() pour les option et faire une man page pour la CLI
 * Améliorer le Makefile
+* Passer de SDL_Surface à SDL_Texture
+* Reset de le verrou si changement de mode
 * Résolution spatiale (échantillonage spatiale)
 * Masquage de zone (seuil et position 'a' paramètrables)
 * Étirement de l'histogramme (correction de la dynamique)
@@ -32,9 +34,9 @@ Il permet de:
 * Histogramme exponentiel
 * Histogramme cubique
 * Histogramme par couleur quantifée
-* Détourage
+* Améliorer Détourage
 * Représentation spectrale
 * Bruit gaussien / sel et poivre
-* Filtre moyenneur
+* Améliorer Filtre moyenneur
 * Filtre médian
 * Ajouter slider en plus des touches haut/bas pour les variations de seuils

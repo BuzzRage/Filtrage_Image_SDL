@@ -1,6 +1,6 @@
 CPP	= gcc
-CFLAGS  = `sdl-config --cflags`
-LIBS	= `sdl-config --libs` -lm -lSDL_image
+CFLAGS  = `sdl2-config --cflags`
+LIBS	= `sdl2-config --libs` -lm -lSDL2_image
 EXEC	= main
 
 all: ${EXEC}
